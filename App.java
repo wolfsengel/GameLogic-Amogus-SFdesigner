@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class App {
-    ArrayList<player> jugadores = playersnammes.getPlayers();
+    ArrayList<player> jugadores = playersnames.getPlayers();
     ArrayList<String> tareas =task.getTareas() ;
     int tiemporespuesta;
     int puntacion;
@@ -31,7 +31,7 @@ public class App {
                     System.out.println(jugadores.get(i).name);
                 }
             }
-            
+
             //distribuir por las habitaciones aleatoriamente
             for (int i = 0; i < jugadores.size(); i++) {
                 int random = r.nextInt(Rooms.values().length);
