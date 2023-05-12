@@ -1,18 +1,13 @@
 import java.util.ArrayList;
 
 public class App {
-    int numerojugadores;
-    String[] jugadores = new String[numerojugadores];
+    ArrayList<player> jugadores = new ArrayList<player>();
     ArrayList<String> tareas =task.getTareas() ;
     int tiemporespuesta;
     int puntacion;
 
     public void jugar() {
-        System.out.println("Jugando");
-        
-
-
-
+        System.out.println("¡COMIENZA LA PARTTIDA!");
 
     }
     //ver tareas
@@ -40,20 +35,22 @@ public class App {
     }
     //añadir jugador
     public void añadirjugador(String jugador) {
-        this.jugadores[this.jugadores.length+1]=jugador;
+        player playero=new student(jugador);
+        this.jugadores.add(playero);
     }
     //eliminar jugador
     public void eliminarjugador(String jugador) {
-        for (int i = 0; i < this.jugadores.length; i++) {
-            if (jugadores[i].equals(jugador)) {
-                this.jugadores[i]="";
+        for (int i = 0; i < jugadores.size(); i++) {
+            if (jugadores.get(i).name.equals(jugador)) {
+                this.jugadores.remove(i);
             }
         }
     }
     //ver jugadores
     public void verjugadores() {
-        for (int i = 0; i < this.jugadores.length; i++) {
-          System.out.println(jugadores[i]);
+        System.out.println("Jugadores:");
+        for (int i = 0; i < jugadores.size(); i++) {
+            System.out.println(jugadores.get(i).name);
         }
     }
 
