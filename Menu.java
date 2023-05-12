@@ -68,31 +68,41 @@ public String getNombre() {
                     }
                     //ejecutar funcion configurar tiempo
                     if(auxMenu.submenus.get(opcion).getNombre().equals("Tiempo Maximo de Respuesta")){
-                        System.out.println("Configurando tiempo");
+                        System.out.println("Ingrese el tiempo maximo de respuesta");
+                        int tiempodas = Integer.parseInt(sc.nextLine());
+                        juego.configurarTiempo(tiempodas);
                     }
                     //ejecutar funcion añaadir tarea
                     if(auxMenu.submenus.get(opcion).getNombre().equals("Añadir tarea")){
-                        System.out.println("Añadiendo tarea");
+                        System.out.println("Ingrese la tarea");
+                        String tarea = sc.nextLine();
+                        juego.añadirtarea(tarea);
                     }
                     //ejecutar funcion eliminar tarea
                     if(auxMenu.submenus.get(opcion).getNombre().equals("Eliminar tarea")){
-                        System.out.println("Eliminando tarea");
+                        System.out.println("Ingrese la tarea");
+                        String tarea = sc.nextLine();
+                        juego.eliminartarea(tarea);
                     }
                     //ejecutar funcion ver tareas
                     if(auxMenu.submenus.get(opcion).getNombre().equals("Ver tareas")){
-                        System.out.println("Viendo tareas");
+                        juego.vertareas();
                     }
                     //ejecutar funcion añadir jugador
                     if(auxMenu.submenus.get(opcion).getNombre().equals("Añadir jugador")){
-                        System.out.println("Añadiendo jugador");
+                        System.out.println("Ingrese al jugador");
+                        String jugador = sc.nextLine();
+                        juego.añadirjugador(jugador);
                     }
                     //ejecutar funcion eliminar jugador
                     if(auxMenu.submenus.get(opcion).getNombre().equals("Eliminar jugador")){
-                        System.out.println("Eliminando jugador");
+                        System.out.println("Ingrese al jugador");
+                        String jugador = sc.nextLine();
+                        juego.eliminarjugador(jugador);
                     }
                     //ejecutar funcion ver jugadores
                     if(auxMenu.submenus.get(opcion).getNombre().equals("Ver jugadores")){
-                        System.out.println("Viendo jugadores");
+                        juego.verjugadores();
                     }
                     //ejecutar funcion salir
                     if(auxMenu.submenus.get(opcion).getNombre().equals("Salir")){
