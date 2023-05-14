@@ -11,4 +11,12 @@ public enum task {
       }
       return tareas;
    }
+   public static String[] getcuatrotareas(){
+      String[] tareas = new String[4];
+      for (int i = 0; i < 4; i++) {
+         int random = (int) (Math.random() * task.values().length);
+         tareas[i]=task.values()[random].name();
+      }
+      return tareas;
+   }
 }

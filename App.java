@@ -5,9 +5,9 @@ public class App {
     ArrayList<player> jugadores = playersnames.getPlayers();
     ArrayList<String> tareas =task.getTareas() ;
     int tiemporespuesta;
-    int puntacion;
+    int puntuacion=0;
 
-    public void jugar() {
+    public void jugar(){
         System.out.println("¡COMIENZA LA PARTTIDA!");
         int asesinos= jugadores.size()>4 ? jugadores.size()/4 : 1;
         System.out.println("Sois "+jugadores.size()+" jugadores, pero hay "+asesinos+" asesinos");
@@ -37,21 +37,47 @@ public class App {
                 int random = r.nextInt(Rooms.values().length);
                 jugadores.get(i).room=Rooms.values()[random].name();
             }
-
-            //distruibuir 4 tareas aleatoriamente a cada jugador estudiante
+            //cada ronda cada estudiante hace una tarea y se suma a puntuacion un punto por estudiante vivo
+            for (int i = 0; i < jugadores.size(); i++) {
+                if(jugadores.get(i) instanceof student && jugadores.get(i).alive){
+                    puntuacion++;
+                }
+            }
+            //comprobar si la puntuacion equivale a la suma de todos los estudiantes
+            int estudiantes=0;
             for (int i = 0; i < jugadores.size(); i++) {
                 if(jugadores.get(i) instanceof student){
-                    for (int j = 0; j < 4; j++) {
-                        int random = r.nextInt(tareas.size());
-                        jugadores.get(i).tasks.add(tareas.get(random));
+                    estudiantes++;
+                }
+            }
+            if(puntuacion==estudiantes*4){
+                System.out.println("¡Has completado todas las tareas!"
+                +"\n¡Has ganado!");
+                return;
+            }
+
+             //----Ronda de la muerte--------------------------------------
+            //comprobar si hay asesinos en la misma habitacion que un estudiante, cada asesino mata una vez por ronda
+            for (int i = 0; i < jugadores.size(); i++) {
+                if(jugadores.get(i) instanceof assassin){
+                    for (int j = 0; j < jugadores.size(); j++) {
+                        if(jugadores.get(i).room.equals(jugadores.get(j).room) && jugadores.get(j) instanceof student){
+                            jugadores.get(j).alive=false;
+                            System.out.println(" Han matado a "+jugadores.get(j).name+" en la habitacion "+jugadores.get(j).room);
+                            break;
+                        }
                     }
                 }
             }
+            //mostrar estado de los jugadores
+            System.out.println("Estado de los jugadores:");
+            for (int i = 0; i < jugadores.size(); i++) {
+                System.out.println(jugadores.get(i).name+" esta en la habitacion "+jugadores.get(i).room+" y esta "+(jugadores.get(i).alive ? "vivo" : "muerto"));
+            }
+
+
             
         }
-        
-
-
 
     }
 

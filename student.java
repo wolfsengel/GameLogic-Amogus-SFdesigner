@@ -1,10 +1,11 @@
 import java.util.ArrayList;
 
 public class student extends player {
-    ArrayList<task> tasks = new ArrayList<task>();
+    public String[] tasks=new String[4];
     //constructor
     public student(String name){
         this.name=name;
         this.alive=true;
+        tasks=task.getcuatrotareas();
     }
 }
