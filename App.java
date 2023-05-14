@@ -4,7 +4,7 @@ import java.util.Random;
 public class App {
     ArrayList<player> jugadores = playersnames.getPlayers();
     ArrayList<String> tareas =task.getTareas() ;
-    int tiemporespuesta;
+    int tiemporespuesta=10;
     int puntuacion=0;
 
     public void jugar(){
@@ -30,6 +30,18 @@ public class App {
                 if(jugadores.get(i).alive){
                     System.out.println(jugadores.get(i).name);
                 }
+            }
+            //si no quedan viivos se pierde
+            int vivos=0;
+            for (int i = 0; i < jugadores.size(); i++) {
+                if(jugadores.get(i).alive){
+                    vivos++;
+                }
+            }
+            if(vivos==0){
+                System.out.println("¡No quedan supervivientes!"
+                +"\n¡Has perdido!");
+                return;
             }
 
             //distribuir por las habitaciones aleatoriamente
@@ -74,8 +86,38 @@ public class App {
             for (int i = 0; i < jugadores.size(); i++) {
                 System.out.println(jugadores.get(i).name+" esta en la habitacion "+jugadores.get(i).room+" y esta "+(jugadores.get(i).alive ? "vivo" : "muerto"));
             }
+            //el ususario decide a quien mata para intentar acertar a un asesino
+            System.out.println("¿A quien quieres matar?");
+            String matar=System.console().readLine();
+            //si se pasa de tiempo no se mata a nadie
+            try {
+                Thread.sleep(tiemporespuesta*1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            //comprobar si el jugador existe y matarlo
+            for (int i = 0; i < jugadores.size(); i++) {
+                if(jugadores.get(i).name.equals(matar)){
+                    jugadores.get(i).alive=false;
+                    System.out.println("Has matado a "+jugadores.get(i).name);
+                    System.out.println(jugadores.get(i).name+" era un "+jugadores.get(i).getClass().getSimpleName());
+                    break;
+                }
+            }
 
-
+            //comprobar cuantos asesinos quedan vivos
+            int asesinosvivos=0;
+            for (int i = 0; i < jugadores.size(); i++) {
+                if(jugadores.get(i) instanceof assassin && jugadores.get(i).alive){
+                    asesinosvivos++;
+                }
+            }
+            //si no queda ninguno se gana
+            if(asesinosvivos==0){
+                System.out.println("¡Has matado a todos los asesinos!"
+                +"\n¡Has ganado!");
+                return;
+            }
             
         }
 
