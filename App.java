@@ -1,3 +1,6 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -28,13 +31,13 @@ public class App {
             System.out.println("Vivos:");
             for (int i = 0; i < jugadores.size(); i++) {
                 if(jugadores.get(i).alive){
-                    System.out.println(jugadores.get(i).name);
+                    System.out.println(jugadores.get(i).name+" Esta vivo");
                 }
             }
-            //si no quedan viivos se pierde
+            //si no quedan estudiantes vivos se pierde
             int vivos=0;
             for (int i = 0; i < jugadores.size(); i++) {
-                if(jugadores.get(i).alive){
+                if(jugadores.get(i) instanceof student && jugadores.get(i).alive){
                     vivos++;
                 }
             }
@@ -86,16 +89,23 @@ public class App {
             for (int i = 0; i < jugadores.size(); i++) {
                 System.out.println(jugadores.get(i).name+" esta en la habitacion "+jugadores.get(i).room+" y esta "+(jugadores.get(i).alive ? "vivo" : "muerto"));
             }
-            //el ususario decide a quien mata para intentar acertar a un asesino
-            System.out.println("¿A quien quieres matar?");
-            String matar=System.console().readLine();
-            //si se pasa de tiempo no se mata a nadie
+            //si el tiempo de respuesta limite se pasa, no recogemos respuesta
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            long startTime = System.currentTimeMillis();
+            long maxWaitTime = 5000; // tiempo máximo de espera en milisegundos
+            System.out.println("Proporcione una entrada por consola:");
             try {
-                Thread.sleep(tiemporespuesta*1000);
-            } catch (InterruptedException e) {
+                while (!br.ready() && System.currentTimeMillis() - startTime < maxWaitTime) {
+                // espera hasta que se proporcione una entrada o hasta que se alcance el tiempo máximo de espera
+                }
+            } catch (IOException e) {
                 e.printStackTrace();
             }
-            //comprobar si el jugador existe y matarlo
+            try {
+                if (br.ready()) {
+                    String matar = br.readLine();
+                    System.out.println("La entrada proporcionada es: " + matar);
+                    //comprobar si el jugador existe y matarlo
             for (int i = 0; i < jugadores.size(); i++) {
                 if(jugadores.get(i).name.equals(matar)){
                     jugadores.get(i).alive=false;
@@ -104,6 +114,13 @@ public class App {
                     break;
                 }
             }
+                } else {
+                    System.out.println("El tiempo ha terminado, no se ha proporcionado ninguna entrada.");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }       
+            
 
             //comprobar cuantos asesinos quedan vivos
             int asesinosvivos=0;
@@ -118,7 +135,15 @@ public class App {
                 +"\n¡Has ganado!");
                 return;
             }
-            
+            //esperar antes de pasar de ronda y mostrar los segundos
+            for (int i = 5; i > 0; i--) {
+                System.out.println("Empiza la siguiente ronda en "+i+" segundos");
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
     }

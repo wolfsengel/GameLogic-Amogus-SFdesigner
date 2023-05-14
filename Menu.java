@@ -66,7 +66,8 @@ public String getNombre() {
                         if(auxMenu.submenus.get(opcion).getNombre().equals("Jugar")){
                             juego.jugar();
                             //volvemos al menu principal
-                            auxMenu = Principal;    
+                            auxMenu = Principal;   
+                            break; 
                         }
                         //ejecutar funcion configurar tiempo
                         if(auxMenu.submenus.get(opcion).getNombre().equals("Tiempo Maximo de Respuesta")){
