@@ -208,10 +208,10 @@ public class Menu {
         MenuComponent opcionEliminarJugador = new Opcion("Eliminar Jugador", menu::eliminarjugador);
         MenuComponent opcionVerJugadores = new Opcion("Ver Jugadores", menu::verjugadores);
 
-    // Agregar las opciones de menú a jugadores
-    submenuJugadores.agregar(opcionAnadirJugador);
-    submenuJugadores.agregar(opcionEliminarJugador);
-    submenuJugadores.agregar(opcionVerJugadores);
+        // Agregar las opciones de menú a jugadores
+        submenuJugadores.agregar(opcionAnadirJugador);
+        submenuJugadores.agregar(opcionEliminarJugador);
+        submenuJugadores.agregar(opcionVerJugadores);   
 
     // Mostrar el menú principal
     menuPrincipal.ejecutar();
